@@ -1,0 +1,52 @@
+  on:
+    workflow_dispatch:
+  permissions:
+    id-token: write
+
+  jobs:
+    build-and-deploy:
+      runs-on: ubuntu
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Setup JFrog CLI
+          uses: jfrog/setup-jfrog-cli@v4
+          env:
+            JF_URL: ${{ vars.JF_URL }}
+          with:
+            oidc-provider-name: jfrog-github
+          run: |
+            jf configure add deploy-jpd \
+            --url https://tomjfrog.jfrog.io \
+            --user tomj@jfrog.com \
+            --password ${{ secrets.JF_PASSWORD }} \
+            --interactive false
+
+        - name: Configure Maven
+          run: |
+            jf maven-configure \
+            --server-id-resolve default \
+            --server-id-deploy deploy-jpd \
+            --repo-resolve-releases edge-maven-smart-remote \
+            --repo-resolve-snapshots edge-maven-smart-remote \
+            --repo-deploy-snapshots demo-maven-dev-local \
+            --repo-deploy-releases demo-maven-dev-local \
+            --use-wrapper true
+
+        - name: Build and Deploy
+          run: |
+            jf mvn clean install 
+            --build-name edge-demo
+            --build-number ${{github.run_number}}
+
+        - name: Enhance Build Info
+          run: |
+            jf rt build-collect-env edge-demo ${{github.run_number}}
+            jf rt build-add-git edge-demo ${{github.run_number}}
+
+        - name: Publish Build Info
+          run: |
+            jf rt build-publish edge-demo ${{github.run_number}}
+            
+            
