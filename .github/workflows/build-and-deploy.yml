@@ -16,12 +16,18 @@
             JF_URL: ${{ vars.JF_URL }}
           with:
             oidc-provider-name: jfrog-github
+
+        - name: Setup second JF Connection
           run: |
             jf configure add deploy-jpd \
-            --url https://tomjfrog.jfrog.io \
+            --url ${{ vars.JF_URL }} \
             --user tomj@jfrog.com \
             --password ${{ secrets.JF_PASSWORD }} \
             --interactive false
+
+        - name: Validate CLI
+          run: |
+            jf c show
 
         - name: Configure Maven
           run: |
