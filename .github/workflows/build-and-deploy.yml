@@ -50,8 +50,8 @@
         - name: Build and Deploy
           run: |
             jf mvn clean install 
-            --build-name=edge-demo
-            --build-number=${{github.run_number}}
+            --build-name edge-demo
+            --build-number ${{github.run_number}}
 
         - name: Enhance Build Info
           run: |
