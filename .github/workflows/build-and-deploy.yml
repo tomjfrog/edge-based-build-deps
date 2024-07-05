@@ -21,7 +21,7 @@
         - name: Setup second JF Connection
           run: |
             jf config add edge-jpd \
-            --url=${{ vars.JF_URL }} \
+            --url=https://tomjfrogedge1.jfrog.io \
             --user=tomj@jfrog.com \
             --password=${{ secrets.JF_PASSWORD }} \
             --interactive=false
