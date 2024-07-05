@@ -20,11 +20,7 @@
 
         - name: Setup second JF Connection
           run: |
-            jf config add deploy-jpd \
-            --url ${{ vars.JF_URL }} \
-            --user tomj@jfrog.com \
-            --password ${{ secrets.JF_PASSWORD }} \
-            --interactive false
+            jf config add deploy-jpd --url ${{ vars.JF_URL }} --user tomj@jfrog.com --password ${{ secrets.JF_PASSWORD }} --interactive false
 
         - name: Validate CLI
           run: |
