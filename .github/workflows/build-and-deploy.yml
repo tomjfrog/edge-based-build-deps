@@ -15,7 +15,7 @@
           env:
             JF_URL: ${{ vars.JF_URL }}
           with:
-            oidc-provider-name: jfrog-github
+            oidc-provider-name: github-oidc-integration
 
         - name: Setup second JF Connection
           run: |
