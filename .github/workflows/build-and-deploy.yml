@@ -19,7 +19,7 @@
         - name: Setup JFrog CLI
           uses: jfrog/setup-jfrog-cli@v4
           env:
-            JF_URL: ${{ vars.JF_URL }}
+            JF_URL: https://tomjfrog.jfrog.io
           with:
             oidc-provider-name: github-oidc-integration
             oidc-audience: jfrog-github
