@@ -20,7 +20,7 @@
 
         - name: Setup second JF Connection
           run: |
-            jf config add deploy-jpd \
+            jf config add edge-jpd \
             --url=${{ vars.JF_URL }} \
             --user=tomj@jfrog.com \
             --password=${{ secrets.JF_PASSWORD }} \
@@ -33,8 +33,8 @@
         - name: Configure Maven
           run: |
             jf mvn-config \
-            --server-id-resolve=setup-jfrog-cli-server \
-            --server-id-deploy=deploy-jpd \
+            --server-id-resolve=edge-jpd \
+            --server-id-deploy=setup-jfrog-cli-server \
             --repo-resolve-releases=edge-maven-smart-remote \
             --repo-resolve-snapshots=edge-maven-smart-remote \
             --repo-deploy-snapshots=demo-maven-dev-local \
