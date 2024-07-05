@@ -20,7 +20,11 @@
 
         - name: Setup second JF Connection
           run: |
-            jf config add deploy-jpd --url ${{ vars.JF_URL }} --user tomj@jfrog.com --password ${{ secrets.JF_PASSWORD }} --interactive false
+            jf config add deploy-jpd \
+            --url=${{ vars.JF_URL }} \
+            --user=tomj@jfrog.com \
+            --password=${{ secrets.JF_PASSWORD }} \
+            --interactive=false
 
         - name: Validate CLI
           run: |
@@ -29,19 +33,19 @@
         - name: Configure Maven
           run: |
             jf maven-configure \
-            --server-id-resolve default \
-            --server-id-deploy deploy-jpd \
-            --repo-resolve-releases edge-maven-smart-remote \
-            --repo-resolve-snapshots edge-maven-smart-remote \
-            --repo-deploy-snapshots demo-maven-dev-local \
-            --repo-deploy-releases demo-maven-dev-local \
-            --use-wrapper true
+            --server-id-resolve=setup-jfrog-cli-server \
+            --server-id-deploy=deploy-jpd \
+            --repo-resolve-releases=edge-maven-smart-remote \
+            --repo-resolve-snapshots=edge-maven-smart-remote \
+            --repo-deploy-snapshots=demo-maven-dev-local \
+            --repo-deploy-releases=demo-maven-dev-local \
+            --use-wrapper=true
 
         - name: Build and Deploy
           run: |
             jf mvn clean install 
-            --build-name edge-demo
-            --build-number ${{github.run_number}}
+            --build-name=edge-demo
+            --build-number=${{github.run_number}}
 
         - name: Enhance Build Info
           run: |
