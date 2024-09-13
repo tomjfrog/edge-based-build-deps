@@ -24,7 +24,7 @@
             oidc-provider-name: github-oidc-integration
             oidc-audience: jfrog-github
 
-        - name: Setup second JF Connection
+        - name: Setup second JF Connection    
           run: |
             jf config add edge-jpd \
             --url=https://tomjfrogedge1.jfrog.io \
@@ -37,8 +37,10 @@
             jf c show
 
         - name: Echo ENV Vars
+          env:
+            SERVER_ID: ${{ env.JF_ENV_SETUP_JFROG_CLI_SERVER_ID }}
           run: |
-            echo ${{ env.JF_ENV_SETUP_JFROG_CLI_SERVER_ID }}
+            echo $SERVER_ID
 
         - name: Configure Maven
           run: |
