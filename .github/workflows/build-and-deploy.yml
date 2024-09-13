@@ -38,7 +38,7 @@
 
         - name: Echo ENV Vars
           run: |
-            printenv
+            printenv | grep JFROG
 
         - name: Configure Maven
           run: |
