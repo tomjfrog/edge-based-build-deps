@@ -20,6 +20,7 @@
           uses: jfrog/setup-jfrog-cli@v4
           env:
             JF_URL: https://tomjfrog.jfrog.io
+            JFROG_CLI_SERVER_ID: foo
           with:
             oidc-provider-name: github-oidc-integration
             oidc-audience: jfrog-github
