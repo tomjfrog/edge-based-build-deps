@@ -20,7 +20,6 @@
           uses: jfrog/setup-jfrog-cli@v4
           env:
             JF_URL: https://tomjfrog.jfrog.io
-            SETUP_JFROG_CLI_SERVER_ID: 'foo'
           with:
             oidc-provider-name: github-oidc-integration
             oidc-audience: jfrog-github
@@ -39,7 +38,7 @@
 
         - name: Echo ENV Vars
           run: |
-            printenv | grep JFROG
+            echo ${{ env.JF_ENV_SETUP_JFROG_CLI_SERVER_ID }}
 
         - name: Configure Maven
           run: |
