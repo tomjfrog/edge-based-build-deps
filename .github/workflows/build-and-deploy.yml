@@ -36,6 +36,10 @@
           run: |
             jf c show
 
+        - name: Echo ENV Vars
+          run: |
+            printenv
+
         - name: Configure Maven
           run: |
             jf mvn-config \
